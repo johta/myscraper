@@ -1,24 +1,33 @@
 from selenium import webdriver
-from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.remote.webelement import WebElement
+from selenium.webdriver import ActionChains
 from selenium.webdriver.common.keys import Keys
 from bs4 import BeautifulSoup
+import unittest, time
 
-driver = webdriver.PhantomJS()
-print("urlを入力して下さい")
-url = input()
-#print("urlを取得中") #PhantomJSがURLを取得するまで時間がかかるので
-driver.get(url)
-#print("url取得完了")
-data = driver.page_source.encode('utf-8')
-#print("utf-8にエンコード完了")
-html = BeautifulSoup(data,"lxml")
-#print("bs4オブジェクト取得完了")
-#print(html)  # htmlソースを表示する
-print("取得するタグを入力してください")
-tag = input()
-print("取得する属性を入力してください")
-attribute = input()
-print("取得する要素を入力して下さい")
-elements = input()
-data = html.find_all(tag,attribute =elements)
-print(data)  # linkタグかつhrefがstyle.cssのもののリスト
+class TestAddition(unittest.TestCase):
+    driver = None
+    def setUp(self):
+        print("Setting up the test")
+        global driver
+        driver = webdriver.PhantomJS()
+        driver.implicitly_wait(10)
+        url = 'http://gamy.jp/tagatame'
+        driver.get(url)
+
+    def tearDown(self):
+        print("Tearing down the test")
+        global driver
+        data = driver.page_source.encode('utf-8')
+        html = BeautifulSoup(data, "html5lib")
+        print(html.title.text)
+        print(html.find('h1').text)
+        driver.quit
+
+    def test_SaveScreenshot(self):
+        global driver
+        driver.save_screenshot("ss.png")
+
+
+if __name__ == '__main__':
+    unittest.main()
