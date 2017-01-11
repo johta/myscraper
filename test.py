@@ -20,8 +20,10 @@ class TestAddition(unittest.TestCase):
         global driver
         data = driver.page_source.encode('utf-8')
         html = BeautifulSoup(data, "html5lib")
-        print(html.title.text)
-        print(html.find('h1').text)
+        #print(html.title.text)
+        print("取得要素を入力して下さい")
+        elem = input()
+        print(html.find(elem).text)
         driver.quit
 
     def test_SaveScreenshot(self):
