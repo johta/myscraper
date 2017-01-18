@@ -11,9 +11,10 @@ for line in f:
         continue
     if "import time" in line:
         fout.writelines(line)
-        fout.writelines("#必要なモジュールインポートしておく\n")
-        fout.writelines("import csv\n")
-        fout.writelines("from bs4 import BeautifulSoup\n")
+        mod = open("requireModules.txt")
+        for modLine in mod:
+            print(modLine)
+            fout.writelines(modLine)
         continue
     if "get" in line:
         fout.writelines(line)
