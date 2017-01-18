@@ -1,20 +1,20 @@
 #!/usr/bin/env python
 #coding:utf-8
-
 f = open('testcode.py')
-# lines = f.readlines()
+fout = open("mytest.py", "w")
 
-fout = open("mytest.py", "w") # result.txtファイルを書き込みモードで作成
+def insertModules():
+    mod = open("requireModules.txt")
+    for modLine in mod:
+        print(modLine)
+        fout.writelines(modLine)
 
 for line in f:
     if line[0] == "#":  #コメント行は無視する
         continue
     if "import time" in line:
         fout.writelines(line)
-        mod = open("requireModules.txt")
-        for modLine in mod:
-            print(modLine)
-            fout.writelines(modLine)
+        insertModules()
         continue
     if "get" in line:
         fout.writelines(line)
