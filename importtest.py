@@ -12,13 +12,14 @@ for line in f:
     if "import time" in line:
         fout.writelines(line)
         fout.writelines("#必要なモジュールインポートしておく\n")
+        fout.writelines("import csv\n")
+        fout.writelines("from bs4 import BeautifulSoup\n")
         continue
     if "get" in line:
         fout.writelines(line)
         fout.writelines("    #url取得処理\n")
         fout.writelines("    time.sleep(3)\n    url = wd.current_url\n")
         fout.writelines("    #ここまでurl取得処理\n    #ここからcsv処理\n    print(url)\n")
-        fout.writelines("    import csv\n")
         fout.writelines("    csvFile = open('tmp.csv', 'w+', newline='')\n")
         fout.writelines("    try:\n")
         fout.writelines("        writer = csv.writer(csvFile)\n")
