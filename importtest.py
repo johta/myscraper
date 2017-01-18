@@ -1,9 +1,7 @@
 #!/usr/bin/env python
 #coding:utf-8
-import os
-import sys
 
-f = open('k.py')
+f = open('testcode.py')
 # lines = f.readlines()
 
 fout = open("mytest.py", "w") # result.txtファイルを書き込みモードで作成
@@ -11,21 +9,31 @@ fout = open("mytest.py", "w") # result.txtファイルを書き込みモード�
 for line in f:
     if line[0] == "#":  #コメント行は無視する
         continue
-    if line[0] == "¥t": #全角スペース入っててsyntaxError出てたの許せない
-        print("タブ")
-    # if "try" in line:
-    #     print(line)
-    #     print("あったよ！")
     if "get" in line:
         fout.writelines(line)
-        fout.write("\t")
-        fout.writelines("#urlとか取得\n")
+        fout.write("    ")
+        fout.writelines("#url取得処理\n")
+        fout.write("    ")
+        fout.writelines("url = wd.title\n")
+        fout.write("    ")
+        fout.writelines("#ここまでurl取得処理\n    #ここからcsv処理\n")
+        fout.write("    ")
+        fout.writelines("import csv\n")
+        fout.write("    ")
+        fout.writelines("csvFile = open('tmp.csv', 'w+', newline='')\n    ")
+        fout.writelines("try:\n    ")
+        fout.writelines("    writer = csv.writer(csvFile)\n    ")
+        fout.writelines("    writer.writerow(('url'))\n    ")
+        fout.writelines("    writer.writerow((url))\n    ")
+        fout.writelines("finally:\n    ")
+        fout.writelines("    csvFile.close()\n    ")
+        fout.writelines("#ここまでcsv処理\n")
         #print(line)
         print("#h1取得してみっかー")
         continue
     if "click()" in line:
         fout.writelines(line)
-        fout.write("\t")
+        fout.write("    ")
         fout.writelines("#クリックを保存\n")
         #print(line)
         print("#クリックされたぞ")
